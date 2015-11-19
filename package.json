@@ -1,0 +1,20 @@
+{
+	"name": "js-helpers",
+	"version": "0.0.0",
+	"author": "Michael Stahl",
+	//  "main": "index.js",
+	"dependencies": {
+		"uglify-js": "latest",
+		"uglifycss": "latest",
+		"onchange": "latest",
+		"parallelshell": "latest"
+	},
+	"scripts": {
+		"js:compile:vendor": "uglifyjs src/js/vendor/*.js -b -o httpdocs/js/vendor/plugins.js",
+		"js:compile": "uglifyjs src/js/main.js src/js/site/*.js -b -o httpdocs/js/main.js",
+		"js:watch": "onchange 'src/js/**/*' -- npm run js:compile",
+		"css:compile": "compass compile && uglifycss httpdocs/css/styles.css > httpdocs/css/styles.min.css",
+		"css:watch": "onchange 'src/sass/**/*' -- npm run css:compile",
+		"build:watch": "parallelshell 'npm run css:watch' 'npm run js:watch'"
+	}
+}
